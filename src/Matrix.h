@@ -20,6 +20,17 @@ public:
     unsigned char value(const Position &position) const;
 
     // You can add your own class members here.
+    Position* positionAt(int row, int column) const;
+    void ClearAll();
+    void ClearDisqualifications();
+    void Disqualify(int row, int column, int match_index);
+    bool GetAllRowsDisqualified(int column, int match_index);
+    bool GetAllColumnsDisqualified(int row, int match_index);
+    void SetOccupied(std::vector<Position> positions, bool value) const;
+    std::string ToString() const;
+    Position** positions = nullptr;
+    int row_count = 0;
+    int col_count = 0;
 
 private:
     std::vector<std::vector<unsigned char>> m_values;

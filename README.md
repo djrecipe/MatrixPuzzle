@@ -1,3 +1,57 @@
+## NOTES FOR SUBMISSION OF JUSTIN PIERCE
+* Many of the predefined header files have members in weird places. This is because I wanted to keep all additional code under the "// You can add your own class members here." comment, where possible, ignoring whether or not the members should be public (it's unclear how strict you will be about these rules regarding modifying of existing classes)
+
+* Output:
+
+> Running example of a simple puzzle with one sequence
+Actual solution:   Path({{0, 1}, {3, 1}, {3, 3}})
+Expected solution: Path({{0, 1}, {3, 1}, {3, 3}})
+Execution time: 481 uS
+
+Running example of a puzzle with two sequences
+Actual solution:   Path({{0, 3}, {2, 3}, {2, 0}, {4, 0}, {4, 2}})
+Expected solution: Path({{0, 3}, {2, 3}, {2, 0}, {4, 0}, {4, 2}})
+Execution time: 393 uS
+
+Running example of a puzzle with one wasted move
+Actual solution:   Path({{0, 2}, {2, 2}, {2, 3}, {4, 3}, {4, 0}, {2, 0}})
+Expected solution: Path({{0, 2}, {2, 2}, {2, 3}, {4, 3}, {4, 0}, {2, 0}})
+Execution time: 4522 uS
+
+Running example of a puzzle with three wasted moves
+Actual solution:   Path({{0, 0}, {2, 0}, {2, 3}, {1, 3}, {1, 4}, {2, 4}, {2, 1}})
+Expected solution: Path({{0, 0}, {2, 0}, {2, 3}, {1, 3}, {1, 4}, {2, 4}, {2, 1}})
+Execution time: 6446 uS
+
+Running example of a puzzle with competing sequences
+Actual solution:   Path({{0, 0}, {3, 0}, {3, 1}, {2, 1}})
+Expected solution: Path({{0, 0}, {3, 0}, {3, 1}, {2, 1}})
+Execution time: 1501 uS
+
+Running example of a puzzle without any solution
+Actual exception:   PathNotFoundError
+Expected exception: PathNotFoundError
+
+Running example of a puzzle with the shortest competing sequence
+Actual solution:   Path({{0, 2}, {3, 2}, {3, 0}})
+Expected solution: Path({{0, 2}, {3, 2}, {3, 0}})
+Execution time: 1393 uS
+
+Running example of a puzzle with one possible sequence out of three
+Actual solution:   Path({{0, 0}, {3, 0}, {3, 4}})
+Expected solution: Path({{0, 0}, {3, 0}, {3, 4}})
+Execution time: 36854 uS
+
+Running example of a complex puzzle with six sequences
+Actual solution:   Path({{0, 8}, {3, 8}, {3, 9}, {9, 9}, {9, 5}, {5, 5}, {5, 4}, {4, 4}, {4, 0}, {2, 0}, {2, 6}, {7, 6}})
+Expected solution: Path({{0, 8}, {3, 8}, {3, 9}, {9, 9}, {9, 5}, {5, 5}, {5, 4}, {4, 4}, {4, 0}, {2, 0}, {2, 6}, {7, 6}})
+Execution time: 11421107 uS
+
+Running example with partial overlap
+Actual solution:   Path({{0, 3}, {2, 3}, {2, 0}, {0, 0}})
+Expected solution: Path({{0, 3}, {2, 3}, {2, 0}, {0, 0}})
+Execution time: 199 uS
+
 # Find the Path Puzzle
 
 Welcome to the **Find the Path Puzzle** project. The goal of the project is to implement a solver for the puzzle mini-game explained in the challenge description.

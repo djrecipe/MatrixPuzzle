@@ -4,6 +4,8 @@
 
 #include "Application.h"
 
+#include <chrono>
+
 #include "InvalidArgumentError.h"
 #include "PathFinder.h"
 #include "PathNotFoundError.h"
@@ -20,7 +22,9 @@ int Application::run()
     runExample8();
 
     // NOTE: Uncomment this example only if you have developed fast algorithm that can handle large matrices and paths.
-    // runExample9();
+    runExample9();
+
+    runExamplej1();
 
     return 0;
 }
@@ -118,8 +122,8 @@ void Application::runExample4()
     const int maxPathLength = 7;
 
     // NOTE: There are multiple possible solutions. Uncomment the suitable one below.
-    const Path expectedSolution = {{{0, 0}, {2, 0}, {2, 3}, {0, 3}, {0, 4}, {2, 4}, {2, 1}}};
-    // const Path expectedSolution = {{{0, 0}, {2, 0}, {2, 3}, {1, 3}, {1, 4}, {2, 4}, {2, 1}}};
+    //const Path expectedSolution = {{{0, 0}, {2, 0}, {2, 3}, {0, 3}, {0, 4}, {2, 4}, {2, 1}}};
+    const Path expectedSolution = {{{0, 0}, {2, 0}, {2, 3}, {1, 3}, {1, 4}, {2, 4}, {2, 1}}};
     // const Path expectedSolution = {{{0, 0}, {2, 0}, {2, 3}, {3, 3}, {3, 4}, {2, 4}, {2, 1}}};
     // const Path expectedSolution = {{{0, 0}, {2, 0}, {2, 3}, {4, 3}, {4, 4}, {2, 4}, {2, 1}}};
     // const Path expectedSolution = {{{0, 4}, {2, 4}, {2, 1}, {0, 1}, {0, 0}, {2, 0}, {2, 3}}};
@@ -256,6 +260,28 @@ void Application::runExample9()
     runExample("example of a complex puzzle with six sequences", matrix, sequences, maxPathLength, expectedSolution);
 }
 
+void Application::runExamplej1()
+{
+    const Matrix matrix =
+    { {
+        {0x00, 0x01, 0x02, 0x03},
+        {0x04, 0x05, 0x06, 0x07},
+        {0x08, 0x09, 0x0a, 0x0b}
+    } };
+
+    const std::vector<Sequence> sequences =
+    {
+        Sequence({0x03, 0x0b, 0x08}, 50),
+        Sequence({0x0b, 0x08, 0x00}, 50)
+    };
+
+    const int maxPathLength = 4;
+
+    const Path expectedSolution = { {{0, 3}, {2, 3}, {2, 0}, {0, 0}} };
+
+    runExample("example with partial overlap", matrix, sequences, maxPathLength, expectedSolution);
+}
+
 // clang-format on
 
 void Application::runExample(const std::string &name,
@@ -267,11 +293,15 @@ void Application::runExample(const std::string &name,
     std::cout << "Running " << name << std::endl;
 
     Path actualSolution;
-
+    long long microseconds = 0;
     try
     {
         PathFinder pathFinder(matrix, sequences, maxPathLength);
+        auto start = std::chrono::high_resolution_clock::now();
         actualSolution = pathFinder.run();
+        auto elapsed = std::chrono::high_resolution_clock::now() - start;
+        microseconds = std::chrono::duration_cast<std::chrono::microseconds>(
+            elapsed).count();
     }
     catch (const InvalidArgumentError &error)
     {
@@ -286,6 +316,7 @@ void Application::runExample(const std::string &name,
 
     std::cout << "Actual solution:   " << actualSolution << std::endl;
     std::cout << "Expected solution: " << expectedSolution << std::endl;
+    std::cout << "Execution time: " << microseconds << " uS" << std::endl;
     std::cout << std::endl;
 
     assert(actualSolution == expectedSolution);
@@ -298,10 +329,11 @@ void Application::runExampleWithoutSolution(const std::string &name,
 {
     std::cout << "Running " << name << std::endl;
 
+    Path actualSolution;
     try
     {
         PathFinder pathFinder(matrix, sequences, maxPathLength);
-        pathFinder.run();
+        actualSolution = pathFinder.run();
     }
     catch (const InvalidArgumentError &)
     {
@@ -317,6 +349,7 @@ void Application::runExampleWithoutSolution(const std::string &name,
         return;
     }
 
+    std::cout << "Actual solution:   " << actualSolution << std::endl;
     std::cout << "Actual exception:   It throws nothing" << std::endl;
     std::cout << "Expected exception: PathNotFoundError" << std::endl;
 

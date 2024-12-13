@@ -21,6 +21,16 @@ public:
     friend std::ostream &operator<<(std::ostream &stream, const Path &path);
 
     // You can add your own class members here.
+    Path(const std::vector<Position*>& positions);
+    Path& operator+=(const Path& path);
+    Position const& operator[](int index) const
+    {
+        return this->m_positions[index];
+    }
+    Position last();
+    Path& skip(int count);
+    std::size_t size();
+    bool empty();
 
 private:
     std::vector<Position> m_positions;

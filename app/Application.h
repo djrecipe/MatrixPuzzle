@@ -25,6 +25,8 @@ private:
     void runExample8();
     void runExample9();
 
+    void runExamplej1();
+
     void runExample(const std::string &name,
                     const Matrix &matrix,
                     const std::vector<Sequence> &sequences,
