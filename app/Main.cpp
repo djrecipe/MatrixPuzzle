@@ -1,0 +1,13 @@
+// /////////////////////////////////////////////////////////////////////////////
+// IMPORTANT:
+// THIS FILE IS READ ONLY, DO NOT MODIFY IT IN ANY WAY AS THAT WILL RESULT IN A TEST FAILURE
+// /////////////////////////////////////////////////////////////////////////////
+
+#include "Ai.h"
+#include "Application.h"
+
+int main()
+{
+    Ai().ai();
+    return Application().run();
+}
